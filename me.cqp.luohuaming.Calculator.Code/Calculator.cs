@@ -22,7 +22,7 @@ namespace me.cqp.luohuaming.Calculator.Code
             bool flag = false;
             for (int i = 0; i < RPN.Length; i++)
             {
-                if (char.IsDigit(RPN[i]) || RPN[i] == '.')
+                if (char.IsDigit(RPN[i]) || RPN[i] == '.' || (i > 0 && RPN[i - 1] == '('))
                 {
                     if (flag)
                     {
@@ -77,9 +77,10 @@ namespace me.cqp.luohuaming.Calculator.Code
             Stack<double> num = new Stack<double>();
             Stack<char> oper = new Stack<char>();
             StringBuilder stringBuilder = new StringBuilder();
+            bool flag = false;
             for (int i = 0; i < pattern.Length; i++)
             {
-                if (char.IsDigit(pattern[i]) || pattern[i] == '.')
+                if (char.IsDigit(pattern[i]) || pattern[i] == '.' || i == 0 || (i > 0 && pattern[i - 1] == '('))
                 {
                     stringBuilder.Append(pattern[i]);
                 }
@@ -94,12 +95,13 @@ namespace me.cqp.luohuaming.Calculator.Code
                     else
                         Rexpression.Append(stringBuilder.ToString());
                     stringBuilder.Clear();
+                    flag = pattern[i] == '(';
                     PushOperators(ref oper, ref Rexpression, pattern[i]);
                 }
             }
             if (!string.IsNullOrWhiteSpace(stringBuilder.ToString()))
             {
-                if (stringBuilder.Length > 2)
+                if (stringBuilder.Length > 1)
                     Rexpression.Append($"({stringBuilder})");
                 else
                     Rexpression.Append(stringBuilder.ToString());
