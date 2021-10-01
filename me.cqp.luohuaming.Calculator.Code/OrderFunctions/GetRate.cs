@@ -55,12 +55,12 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
             if (string.IsNullOrWhiteSpace(MainSave.RateKey))
                 return $"请在 https://app.exchangerate-api.com/dashboard 申请APIKey，并参照文档填写在配置文件内";
             string baseURL = $"https://v6.exchangerate-api.com/v6/{MainSave.RateKey}/latest/";
-            int count = 0;
+            double count = 0;
             string type = "";
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < order.Length; i++)
             {
-                if (char.IsDigit(order[i]))
+                if (char.IsDigit(order[i])||order[i]=='.')
                     sb.Append(order[i]);
             }
             if (sb.Length == 0)
@@ -68,7 +68,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                 count = 1;
             }
             else
-                count = int.Parse(sb.ToString());
+                count = double.Parse(sb.ToString());
             type = order.Replace(" ", "").Replace(count.ToString(), "");
             type = PatternChange(type);
             baseURL += type;
@@ -92,7 +92,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                         result.AppendLine($"{PatternChange(item)}: {rate * count:f2}");
                     }
                 }
-                result.AppendLine(CommonHelper.TimeStamp2Time(json.time_last_update_unix).ToString("G"));
+                result.AppendLine("汇率更新：" + CommonHelper.TimeStamp2Time(json.time_last_update_unix).ToString("G"));
                 return result.ToString();
             }
 
