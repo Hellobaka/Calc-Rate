@@ -80,7 +80,7 @@ namespace me.cqp.luohuaming.Calculator.Code
             bool flag = false;
             for (int i = 0; i < pattern.Length; i++)
             {
-                if (char.IsDigit(pattern[i]) || pattern[i] == '.' || i == 0 || (i > 0 && pattern[i - 1] == '('))
+                if (char.IsDigit(pattern[i]) || pattern[i] == '.' || (i == 0 && pattern[i] == '-') || (i > 0 && pattern[i - 1] == '('))
                 {
                     stringBuilder.Append(pattern[i]);
                 }
