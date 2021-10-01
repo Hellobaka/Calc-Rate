@@ -82,7 +82,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                     return $"无法获取汇率，请检查请求的货币类型文本";
                 }
                 StringBuilder result = new StringBuilder();
-                result.AppendLine($"货币类型：{json.base_code} 上次更新时间：{CommonHelper.TimeStamp2Time(json.time_last_update_unix):G}");
+                result.AppendLine($"货币类型：{json.base_code}");
                 List<string> target = new List<string> { "CNY", "USD", "EUR", "JPY", "HKD" };
                 foreach(var item in target)
                 {
@@ -92,6 +92,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                         result.AppendLine($"{PatternChange(item)}: {rate * count:f2}");
                     }
                 }
+                result.AppendLine(CommonHelper.TimeStamp2Time(json.time_last_update_unix).ToString("G"));
                 return result.ToString();
             }
 

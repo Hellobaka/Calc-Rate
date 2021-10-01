@@ -24,7 +24,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
             {
                 SendID = e.FromGroup,
             };
-            sendText.MsgToSend.Add(CQApi.CQCode_At(e.FromQQ).ToString() + GetCalcResult(e.Message.Text.Replace(GetOrderStr(), "").Trim()));
+            sendText.MsgToSend.Add(CQApi.CQCode_At(e.FromQQ).ToString() + "\n结果：" + GetCalcResult(e.Message.Text.Replace(GetOrderStr(), "").Trim()));
             result.SendObject.Add(sendText);
             return result;
         }
@@ -40,7 +40,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
             {
                 SendID = e.FromQQ,
             };
-            sendText.MsgToSend.Add(GetCalcResult(e.Message.Text.Replace(GetOrderStr(), "").Trim()));
+            sendText.MsgToSend.Add("\n结果："+GetCalcResult(e.Message.Text.Replace(GetOrderStr(), "").Trim()));
             result.SendObject.Add(sendText);
             return result;
         }
