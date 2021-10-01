@@ -92,7 +92,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                         result.AppendLine($"{PatternChange(item)}: {rate * count:f2}");
                     }
                 }
-                result.AppendLine("汇率更新：" + CommonHelper.TimeStamp2Time(json.time_last_update_unix).ToString("G"));
+                result.Append("汇率更新：" + CommonHelper.TimeStamp2Time(json.time_last_update_unix).ToString("G"));
                 return result.ToString();
             }
 
