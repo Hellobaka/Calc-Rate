@@ -126,7 +126,7 @@ namespace me.cqp.luohuaming.Calculator.Code
                     Rexpression.Append(opers.Pop());
                 opers.Pop();
             }
-            else if (operators[oper] >= operators[opers.Peek()])
+            else if (operators[oper] > operators[opers.Peek()])
                 opers.Push(oper);
             else
             {
