@@ -29,6 +29,7 @@ namespace me.cqp.luohuaming.Calculator.PublicInfos
                 if (configMain != null)
                     return configMain;
                 configMain = new IniConfig(Path.Combine(AppDirectory, "Config.ini"));
+                configMain.Encoding = System.Text.Encoding.UTF8;
                 configMain.Load();
                 return configMain;
             }

@@ -60,8 +60,10 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < order.Length; i++)
             {
-                if (char.IsDigit(order[i])||order[i]=='.')
+                if (char.IsDigit(order[i]) || order[i] == '.')
                     sb.Append(order[i]);
+                else
+                    break;
             }
             if (sb.Length == 0)
             {
@@ -70,7 +72,11 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
             else
                 count = double.Parse(sb.ToString());
             type = order.Replace(" ", "").Replace(count.ToString(), "");
-            type = PatternChange(type);
+            var configT = GetTextFromConfig(type);
+            if (string.IsNullOrWhiteSpace(configT) is false)
+                type = configT;
+            else
+                type = PatternChange(type);
             baseURL += type;
             using (var http = new HttpWebClient())
             {
@@ -96,6 +102,19 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                 return result.ToString();
             }
 
+        }
+        public static string GetTextFromConfig(string order)
+        {
+            order = order.Trim();
+            if (MainSave.ConfigMain.Object.ContainsKey("Rate") is false)
+                return string.Empty;
+            var c = MainSave.ConfigMain.Object["Rate"];
+            foreach (var item in c)
+            {
+                if (order == item.Key)
+                    return item.Value;
+            }
+            return string.Empty;
         }
         public static string PatternChange(string pattern)
         {
