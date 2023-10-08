@@ -8,7 +8,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions.Tests
         [TestMethod()]
         public void GetCalcResultTest()
         {
-            string pattern = "80+1.5*2.5-2";
+            string pattern = "(500/50)*65598.548*(6-5.652)/58";
             System.Console.WriteLine(DoCalc.GetCalcResult(pattern));
         }
     }

@@ -50,6 +50,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
             result.SendObject.Add(sendText);
             return result;
         }
+
         public static string GetRateResult(string order)
         {
             if (string.IsNullOrWhiteSpace(MainSave.RateKey))
@@ -88,9 +89,9 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                     return $"无法获取汇率，请检查请求的货币类型文本";
                 }
                 StringBuilder result = new StringBuilder();
-                result.AppendLine($"货币类型：{json.base_code}");
+                result.AppendLine($"货币：{json.base_code}");
                 List<string> target = new List<string> { "CNY", "USD", "EUR", "JPY", "HKD" };
-                foreach(var item in target)
+                foreach (var item in target)
                 {
                     if (json.base_code != item)
                     {
@@ -98,11 +99,11 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                         result.AppendLine($"{PatternChange(item)}: {rate * count:f2}");
                     }
                 }
-                result.Append("汇率更新：" + CommonHelper.TimeStamp2Time(json.time_last_update_unix).ToString("G"));
+                result.Append("汇率更新：\n" + CommonHelper.TimeStamp2Time(json.time_last_update_unix).ToString("yyyy/MM/dd"));
                 return result.ToString();
             }
-
         }
+
         public static string GetTextFromConfig(string order)
         {
             order = order.Trim();
@@ -116,6 +117,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
             }
             return string.Empty;
         }
+
         public static string PatternChange(string pattern)
         {
             pattern = pattern.ToUpper();
@@ -125,33 +127,45 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions
                 case "人民币":
                 case "元":
                     return "CNY";
+
                 case "日元":
                 case "円":
                     return "JPY";
+
                 case "欧元":
                     return "EUR";
+
                 case "美元":
                 case "刀":
                 case "dollar":
                 case "doller":
                     return "USD";
+
                 case "港币":
                     return "HKD";
+
                 case "英镑":
                 case "£":
                     return "GBP";
+
                 case "GBP":
                     return "英镑";
+
                 case "EUR":
                     return "欧元";
+
                 case "HKD":
                     return "港币";
+
                 case "USD":
                     return "美元";
+
                 case "JPY":
                     return "日元";
+
                 case "CNY":
                     return "人民币";
+
                 default:
                     return pattern;
             }

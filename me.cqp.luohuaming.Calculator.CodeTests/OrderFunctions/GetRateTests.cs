@@ -14,7 +14,7 @@ namespace me.cqp.luohuaming.Calculator.Code.OrderFunctions.Tests
         [TestMethod()]
         public void GetRateResultTest()
         {
-            string order = "7589日元";
+            string order = "75.89英镑";
             Console.WriteLine(GetRate.GetRateResult(order));
         }
     }
